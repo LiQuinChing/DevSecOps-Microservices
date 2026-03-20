@@ -40,6 +40,7 @@ jobs:
 
     - name: Update Deployment Image
       run: |
+        kubectl apply -f k8s/apps/frontend-app.yaml
         # Temporarily update the deployment to point to the newly built image in ACR
         # Note: You will need to ensure your k8s/apps/frontend-app.yaml points to this ACR image eventually
         kubectl set image deployment/frontend-app frontend-app=${{ secrets.ACR_LOGIN_SERVER }}/frontend-client:${{ github.run_id }}
