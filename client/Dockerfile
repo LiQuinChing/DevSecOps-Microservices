@@ -23,6 +23,3 @@ COPY nginx.conf /etc/nginx/conf.d/default.conf
 EXPOSE 8080
 
 # Recommended command for Docker/K8s to keep the process in the foreground
-CMD ["nginx", "-g", "daemon off;"]
-
-# Triggering the frontend CI/CD pipeline again2
