@@ -6,7 +6,7 @@ COPY src ./src
 
 RUN mvn -DskipTests clean package
 
-FROM eclipse-temurin:17-jre
+FROM cgr.dev/chainguard/jre:latest
 WORKDIR /app
 
 COPY --from=builder /app/target/*.jar app.jar
