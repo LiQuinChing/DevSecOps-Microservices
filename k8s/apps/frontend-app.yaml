@@ -14,8 +14,10 @@ spec:
     spec:
       containers:
       - name: frontend-app
-        image: local-frontend:v1
-        imagePullPolicy: Never
+        # Replace 'miniecommerceacr' with your exact ACR name if you changed it
+        image: it22246714ctse.azurecr.io/frontend-client:latest
+        # Change PullPolicy so AKS knows to fetch it from the cloud registry
+        imagePullPolicy: Always
         ports:
         - containerPort: 8080
 ---
