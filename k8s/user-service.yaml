@@ -14,8 +14,8 @@ spec:
     spec:
       containers:
         - name: user-service
-          image: mini-ecommerce/user-service:latest
-          imagePullPolicy: IfNotPresent
+          image: it22246714ctse.azurecr.io/user-service:latest
+          imagePullPolicy: Always
           ports:
             - containerPort: 8081
           env:
