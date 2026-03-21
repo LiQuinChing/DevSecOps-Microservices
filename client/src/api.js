@@ -64,4 +64,33 @@ export const getPaymentById = (id, token) =>
   request(`${BASE_PAYMENT}/${id}`, {
     headers: token ? { Authorization: `Bearer ${token}` } : undefined,
   });
+
+  // --- ADD THIS BLOCK TO FIX THE REFERENCE ERROR ---
+const api = {
+  get: async (url) => {
+    // Automatically prefix with /api (e.g., /products becomes /api/products)
+    const data = await request(`/api${url}`);
+    return { data }; // Wrap in 'data' to mimic Axios for your group member's code
+  },
+  post: async (url, body) => {
+    const data = await request(`/api${url}`, { 
+      method: 'POST', 
+      body: JSON.stringify(body) 
+    });
+    return { data };
+  },
+  put: async (url, body) => {
+    const data = await request(`/api${url}`, { 
+      method: 'PUT', 
+      body: JSON.stringify(body) 
+    });
+    return { data };
+  },
+  delete: async (url) => {
+    const data = await request(`/api${url}`, { 
+      method: 'DELETE' 
+    });
+    return { data };
+  }
+};
 export default api;
