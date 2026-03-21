@@ -1,11 +1,11 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
-import { AuthContext } from '../AuthContext'; 
+import { useAuth } from '../AuthContext'; 
 
 export default function CustomerOrderPage() {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
-  const { user, token } = useContext(AuthContext); // Get logged in user details
+  const { user, token } = useAuth(); // Get logged in user details
 
   const API_URL = "/api/orders"; // Update to your Cloud IP if needed
 

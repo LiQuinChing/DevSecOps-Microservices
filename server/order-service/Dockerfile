@@ -9,10 +9,12 @@ RUN CGO_ENABLED=0 GOOS=linux go build -o /order-service ./cmd/server
 # Run stage
 FROM cgr.dev/chainguard/static:latest
 WORKDIR /
+
 # Create the nonroot user and group
-RUN addgroup -S nonroot && adduser -S nonroot -G nonroot
+#RUN addgroup -S nonroot && adduser -S nonroot -G nonroot
+
 COPY --from=builder /order-service /order-service
 EXPOSE 8080
 # Switch to the new user
-USER nonroot:nonroot
+#USER nonroot:nonroot
 ENTRYPOINT ["/order-service"]
