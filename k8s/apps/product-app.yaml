@@ -20,6 +20,13 @@ spec:
         # Point to your Azure ACR!
         image: it22246714ctse.azurecr.io/product-service:latest
         imagePullPolicy: Always
+        # --- ADD THIS ENV BLOCK ---
+        env:
+        - name: PORT
+          value: "5000"
+        - name: MONGO_URI
+          value: "mongodb+srv://thisal_fernando:AdminUser5085640@finance-tracker.sebpt.mongodb.net/product_service"
+        # --------------------------
         ports:
         - containerPort: 5000
         volumeMounts:
