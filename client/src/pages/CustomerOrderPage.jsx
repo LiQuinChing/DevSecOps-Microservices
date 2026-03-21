@@ -5,17 +5,17 @@ import { useAuth } from '../AuthContext';
 export default function CustomerOrderPage() {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
-  const { user, token } = useAuth(); // Get logged in user details
+  const { userId, token } = useAuth(); // Get logged in user details
 
   const API_URL = "/api/orders"; // Update to your Cloud IP if needed
 
   // Fetch only the orders belonging to this user
   const fetchMyOrders = async () => {
-    if (!user) return;
+    if (!userId) return;
     setLoading(true);
     try {
       // Pass the userId as a query parameter
-      const response = await fetch(`${API_URL}?userId=${user.id}`, {
+      const response = await fetch(`${API_URL}?userId=${userId}`, {
         headers: {
             'Authorization': `Bearer ${token}`
         }
