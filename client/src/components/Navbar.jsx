@@ -52,7 +52,7 @@ export default function Navbar() {
   }
 
   return (
-    <nav className="bg-gray-800 text-white shadow-md font-bold">
+    <nav className="bg-indigo-900 text-white shadow-md font-bold">
       <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
         <NavLink to="/" className="text-xl font-extrabold tracking-tight hover:text-green-200 transition-colors">
           SUSARA Clothing

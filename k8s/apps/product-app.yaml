@@ -12,22 +12,23 @@ spec:
       labels:
         app: product-service
     spec:
+      # DEVSECOPS TRICK: Grant the nonroot user permission to write uploads!
+      securityContext:
+        fsGroup: 65532
       containers:
       - name: product-service
-        image: local-product-service:v3
-        imagePullPolicy: Never
+        # Point to your Azure ACR!
+        image: it22246714ctse.azurecr.io/product-service:latest
+        imagePullPolicy: Always
         ports:
         - containerPort: 5000
-
         volumeMounts:
         - name: upload-storage
           mountPath: /app/uploads
-
       volumes:
       - name: upload-storage
-        hostPath:
-          path: /data/uploads
-          type: DirectoryOrCreate
+        # emptyDir is much safer for cloud cluster assignments
+        emptyDir: {}
 ---
 apiVersion: v1
 kind: Service
