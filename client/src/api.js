@@ -1,3 +1,4 @@
+
 // Base API helper routed through the Vite proxy to avoid CORS issues.
 const BASE_USER = '/api/users';
 const BASE_PAYMENT = '/api/payments';
@@ -63,3 +64,4 @@ export const getPaymentById = (id, token) =>
   request(`${BASE_PAYMENT}/${id}`, {
     headers: token ? { Authorization: `Bearer ${token}` } : undefined,
   });
+export default api;
