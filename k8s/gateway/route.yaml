@@ -8,17 +8,11 @@ spec:
   - name: ecommerce-gateway
   rules:
   
-  # --- PRODUCT SERVICE ROUTES ---
+# --- PRODUCT SERVICE ROUTES ---
   - matches:
     - path:
         type: PathPrefix
         value: /api/products
-    filters:
-    - type: URLRewrite
-      urlRewrite:
-        path:
-          type: ReplacePrefixMatch
-          replacePrefixMatch: /products
     backendRefs:
     - name: product-service
       port: 5000
@@ -35,12 +29,6 @@ spec:
     - path:
         type: PathPrefix
         value: /api/suppliers
-    filters:
-    - type: URLRewrite
-      urlRewrite:
-        path:
-          type: ReplacePrefixMatch
-          replacePrefixMatch: /suppliers
     backendRefs:
     - name: product-service
       port: 5000

@@ -150,7 +150,7 @@ function Sidebar() {
               Add Supplier
             </NavLink>
 
-            <NavLink to="/admin/orders" className={({ isActive }) => isActive ? activeItem : menuItem}>
+            <NavLink to="/orders" className={({ isActive }) => isActive ? activeItem : menuItem}>
               <FiShoppingCart />
               Manage Orders
             </NavLink>
