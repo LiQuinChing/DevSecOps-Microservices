@@ -61,12 +61,12 @@ export default function CustomerOrderPage() {
   };
 
   useEffect(() => {
-    if (user) {
+    if (userId) {
       fetchMyOrders();
     }
-  }, [user]);
+  }, [userId]);
 
-  if (!user) {
+  if (!userId) {
     return <div className="p-8 text-center text-red-500">Please log in to view your orders.</div>;
   }
 

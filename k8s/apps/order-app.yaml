@@ -15,7 +15,10 @@ spec:
       containers:
       - name: order-service
         image: it22246714ctse.azurecr.io/order-service:latest
-        imagePullPolicy: Never
+        imagePullPolicy: Always
+        env:
+        - name: SERVER_PORT
+          value: "8080"
         ports:
         - containerPort: 8080
 ---
