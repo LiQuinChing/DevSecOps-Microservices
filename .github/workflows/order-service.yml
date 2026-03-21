@@ -2,6 +2,9 @@ name: Order Service CI/CD Pipeline
 
 on:
   push:
+    branches:
+      - dev-main-all # <-- Explicitly tell it to watch your new branch!
+      - dev-main1    # <-- Keep the old one just in case
     paths:
       - 'server/order-service/**'
       - 'k8s/apps/order-app.yaml'

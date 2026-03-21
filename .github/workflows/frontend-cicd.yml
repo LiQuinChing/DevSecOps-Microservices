@@ -3,8 +3,12 @@ name: Frontend CI/CD Pipeline
 # Trigger the workflow when changes are pushed to the client folder
 on:
   push:
+    branches:
+      - dev-main-all # <-- Explicitly tell it to watch your new branch!
+      - dev-main1    # <-- Keep the old one just in case
     paths:
       - 'client/**'
+      - 'k8s/apps/frontend-app.yaml'
   workflow_dispatch:
 
 jobs:

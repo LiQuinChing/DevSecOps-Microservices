@@ -86,7 +86,7 @@ function OrderProducts() {
 
                 {supplierData?.supplierImage && (
                   <img
-                    src={`http://localhost:8888/uploads/suppliers/${supplierData.supplierImage}`}
+                    src={`/uploads/suppliers/${supplierData.supplierImage}`}
                     className="w-12 h-12 rounded-full"
                   />
                 )}
@@ -108,7 +108,7 @@ function OrderProducts() {
                     <div className="relative">
 
                         <img
-                            src={`http://localhost:8888/uploads/products/${product.productImage}`}
+                            src={`/uploads/products/${product.productImage}`}
                             className="h-48 w-full object-cover"
                         />
 

@@ -3,6 +3,9 @@ name: User Service CI/CD Pipeline
 # Trigger only when files in the user-service folder change
 on:
   push:
+    branches:
+      - dev-main-all # <-- Explicitly tell it to watch your new branch!
+      - dev-main1    # <-- Keep the old one just in case
     paths:
       - 'server/user-service/**'
       - 'k8s/user-service.yaml'

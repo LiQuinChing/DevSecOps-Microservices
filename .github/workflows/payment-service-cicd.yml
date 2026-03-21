@@ -3,6 +3,9 @@ name: Payment Service CI/CD Pipeline
 # Trigger only when files in the payment-service folder change
 on:
   push:
+    branches:
+      - dev-main-all # <-- Explicitly tell it to watch your new branch!
+      - dev-main1    # <-- Keep the old one just in case
     paths:
       - 'server/payment-service/**'
       - 'k8s/payment-service.yaml'

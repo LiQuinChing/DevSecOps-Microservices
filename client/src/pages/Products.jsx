@@ -23,28 +23,6 @@ function Products() {
     setSuppliers(res.data);
   };
 
-  // ================= SYNC WITH ORDER SERVICE =================
-
-  // const syncToggleWithOrders = async () => {
-  //   try {
-  //     const res = await fetch("http://localhost:8888/api/orders");
-  //     const orders = await res.json();
-
-  //     const map = {};
-
-  //     orders.forEach(order => {
-  //       order.cart.forEach(item => {
-  //         map[item.product_id] = true;
-  //       });
-  //     });
-
-  //     setSelectedProducts(map);
-
-  //   } catch (err) {
-  //     console.error("Failed to sync orders", err);
-  //   }
-  // };
-
   useEffect(() => {
     document.title = "SUSARA Clothing | Products";
     // eslint-disable-next-line react-hooks/set-state-in-effect
@@ -63,37 +41,6 @@ function Products() {
     loadProducts();
 
   };
-
-  // ================= TOGGLE =================
-
-  // const toggleOrder = async (productId) => {
-
-  //   const isSelected = selectedProducts[productId];
-
-  //   try {
-
-  //     await api.post("/products/send-products", {
-  //       productId,
-  //       action: isSelected ? "remove" : "add"
-  //     });
-
-  //     setSelectedProducts(prev => ({
-  //       ...prev,
-  //       [productId]: !isSelected
-  //     }));
-
-  //     toast.success(
-  //       isSelected
-  //         ? "Product removed from order"
-  //         : "Product sent to order"
-  //     );
-
-  //   // eslint-disable-next-line no-unused-vars
-  //   } catch (error) {
-  //     toast.error("Failed to update order");
-  //   }
-
-  // };
 
   // ================= GROUP PRODUCTS =================
 
@@ -139,7 +86,7 @@ function Products() {
 
                   {supplierData?.supplierImage && (
                     <img
-                      src={`http://localhost:8888/uploads/suppliers/${supplierData.supplierImage}`}
+                      src={`/uploads/suppliers/${supplierData.supplierImage}`}
                       className="w-14 h-14 rounded-full object-cover border"
                     />
                   )}
@@ -170,7 +117,7 @@ function Products() {
                     <div className="relative">
 
                       <img
-                        src={`http://localhost:8888/uploads/products/${product.productImage}`}
+                        src={`/uploads/products/${product.productImage}`}
                         className="h-48 w-full object-cover"
                       />
 

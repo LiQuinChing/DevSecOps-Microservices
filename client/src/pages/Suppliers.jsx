@@ -97,7 +97,7 @@ function Suppliers(){
               <div className="relative">
 
                 <img
-                  src={`http://localhost:8888/uploads/suppliers/${supplier.supplierImage}`}
+                  src={`/uploads/suppliers/${supplier.supplierImage}`}
                   className="h-48 w-full object-cover"
                 />
 
@@ -126,7 +126,7 @@ function Suppliers(){
                   {supplier.supplierImage && (
 
                     <img
-                      src={`http://localhost:8888/uploads/suppliers/${supplier.supplierImage}`}
+                      src={`/uploads/suppliers/${supplier.supplierImage}`}
                       className="w-10 h-10 rounded-full object-cover border"
                     />
 
