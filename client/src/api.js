@@ -65,14 +65,20 @@ export const getPaymentById = (id, token) =>
     headers: token ? { Authorization: `Bearer ${token}` } : undefined,
   });
 
-  // --- ADD THIS BLOCK TO FIX THE REFERENCE ERROR ---
+ // --- ADD THIS BLOCK TO FIX THE REFERENCE ERROR & FORM DATA UPLOADS ---
 const api = {
   get: async (url) => {
-    // Automatically prefix with /api (e.g., /products becomes /api/products)
     const data = await request(`/api${url}`);
-    return { data }; // Wrap in 'data' to mimic Axios for your group member's code
+    return { data }; 
   },
   post: async (url, body) => {
+    // If it's a file upload form, bypass JSON stringification!
+    if (body instanceof FormData) {
+      const res = await fetch(`/api${url}`, { method: 'POST', body });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) throw new Error(data.message || `HTTP ${res.status}`);
+      return { data };
+    }
     const data = await request(`/api${url}`, { 
       method: 'POST', 
       body: JSON.stringify(body) 
@@ -80,6 +86,13 @@ const api = {
     return { data };
   },
   put: async (url, body) => {
+    // Check for FormData on edits as well
+    if (body instanceof FormData) {
+      const res = await fetch(`/api${url}`, { method: 'PUT', body });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) throw new Error(data.message || `HTTP ${res.status}`);
+      return { data };
+    }
     const data = await request(`/api${url}`, { 
       method: 'PUT', 
       body: JSON.stringify(body) 
