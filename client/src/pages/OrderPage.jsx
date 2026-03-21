@@ -9,7 +9,7 @@ export default function OrderPage() {
   const fetchOrders = async (isManualRefresh = false) => {
     setLoading(true);
     try {
-      const response = await fetch('http://localhost:8888/api/orders');
+      const response = await fetch('/api/orders');
       const data = await response.json();
 
       // Only show the toast if we manually clicked refresh AND there are more orders
@@ -35,7 +35,7 @@ export default function OrderPage() {
   // Delete order
   const deleteOrder = async (orderId) => {
     try {
-      await fetch(`http://localhost:8888/api/orders?id=${orderId}`, {
+      await fetch(`/api/orders?id=${orderId}`, {
         method: 'DELETE',
       });
       // Refresh the list after deleting
