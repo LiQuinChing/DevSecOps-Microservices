@@ -7,6 +7,45 @@ spec:
   parentRefs:
   - name: ecommerce-gateway
   rules:
+  
+  # --- PRODUCT SERVICE ROUTES ---
+  - matches:
+    - path:
+        type: PathPrefix
+        value: /api/products
+    filters:
+    - type: URLRewrite
+      urlRewrite:
+        path:
+          type: ReplacePrefixMatch
+          replacePrefixMatch: /products
+    backendRefs:
+    - name: product-service
+      port: 5000
+
+  - matches:
+    - path:
+        type: PathPrefix
+        value: /uploads
+    backendRefs:
+    - name: product-service
+      port: 5000
+
+  - matches:
+    - path:
+        type: PathPrefix
+        value: /api/suppliers
+    filters:
+    - type: URLRewrite
+      urlRewrite:
+        path:
+          type: ReplacePrefixMatch
+          replacePrefixMatch: /suppliers
+    backendRefs:
+    - name: product-service
+      port: 5000
+
+  # --- ORDER SERVICE ROUTE ---
   - matches:
     - path:
         type: PathPrefix
@@ -19,7 +58,9 @@ spec:
           replacePrefixMatch: /orders
     backendRefs:
     - name: order-service
-      port: 80
+      port: 8080
+        
+  # --- USER SERVICE ROUTE ---
   - matches:
     - path:
         type: PathPrefix
@@ -33,6 +74,8 @@ spec:
     backendRefs:
     - name: user-service
       port: 8081
+      
+  # --- PAYMENT SERVICE ROUTE ---
   - matches:
     - path:
         type: PathPrefix
@@ -46,10 +89,12 @@ spec:
     backendRefs:
     - name: payment-service
       port: 8083
+
+  # --- FRONTEND ROUTE ---
   - matches:
     - path:
         type: PathPrefix
         value: /
     backendRefs:
     - name: frontend-app
-      port: 80
+      port: 8080
