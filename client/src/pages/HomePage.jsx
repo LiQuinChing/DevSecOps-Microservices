@@ -57,7 +57,7 @@ export default function HomePage() {
         role === 'ADMIN'
           ? 'See all the orders done by the customers and manage them.'
           : 'Make an order for the products you want to buy.',
-      to: '/orders',
+      to: role === 'ADMIN' ? '/orders' : '/my-orders',
       icon: <OrdersIcon />,
       cta: role === 'ADMIN' ? 'View All Orders' : 'View Orders',
       show: !!email,
