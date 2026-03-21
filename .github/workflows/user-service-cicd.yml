@@ -5,6 +5,7 @@ on:
   push:
     paths:
       - 'server/user-service/**'
+      - 'k8s/user-service.yaml'
   workflow_dispatch:
 
 jobs:

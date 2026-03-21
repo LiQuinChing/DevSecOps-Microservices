@@ -5,6 +5,7 @@ on:
   push:
     paths:
       - 'server/payment-service/**'
+      - 'k8s/payment-service.yaml'
   workflow_dispatch:
 
 jobs:

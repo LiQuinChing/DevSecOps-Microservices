@@ -4,6 +4,7 @@ on:
   push:
     paths:
       - 'server/order-service/**'
+      - 'k8s/apps/order-app.yaml'
   workflow_dispatch:
 
 jobs:
