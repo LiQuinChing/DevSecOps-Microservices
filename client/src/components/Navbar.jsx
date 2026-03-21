@@ -53,9 +53,14 @@ export default function Navbar() {
           {email ? (
             <>
               {role !== 'ADMIN' && (
-                <Link to="/payment" className="hover:text-indigo-200 transition-colors">
-                  Make Payment
-                </Link>
+                <>
+                  <Link to="/my-orders" className="hover:text-indigo-200 transition-colors">
+                     My Orders
+                  </Link>
+                  <Link to="/payment" className="hover:text-indigo-200 transition-colors">
+                    Make Payment
+                  </Link>
+                </>
               )}
               <Link to="/payments" className="hover:text-indigo-200 transition-colors">
                 {role === 'ADMIN' ? 'Payment History' : 'My Payments'}

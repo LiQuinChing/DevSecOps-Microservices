@@ -7,7 +7,7 @@ COPY . .
 RUN CGO_ENABLED=0 GOOS=linux go build -o /order-service ./cmd/server
 
 # Run stage
-FROM alpine:latest
+FROM cgr.dev/chainguard/static:latest
 WORKDIR /
 # Create the nonroot user and group
 RUN addgroup -S nonroot && adduser -S nonroot -G nonroot

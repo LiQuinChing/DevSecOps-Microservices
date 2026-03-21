@@ -9,6 +9,7 @@ import PaymentPage from './pages/PaymentPage';
 import PaymentHistoryPage from './pages/PaymentHistoryPage';
 import ManageCustomersPage from './pages/ManageCustomersPage';
 import OrderPage from "./pages/OrderPage";
+import CustomerOrderPage from './pages/CustomerOrderPage';
 
 function ProtectedRoute({ children }) {
   const { token } = useAuth();
@@ -36,6 +37,7 @@ function AppRoutes() {
         <Route path="/payments" element={<ProtectedRoute><PaymentHistoryPage /></ProtectedRoute>} />
         {/* Order route - needs a login */}
         <Route path="/orders" element={<ProtectedRoute><OrderPage /></ProtectedRoute>} />
+        <Route path="/my-orders" element={<CustomerOrderPage />} />
 
       {/* Admin Routes */}
         <Route path="/customers" element={<AdminRoute><ManageCustomersPage /></AdminRoute>} />

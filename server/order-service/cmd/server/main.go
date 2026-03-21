@@ -26,6 +26,7 @@ type OrderRequest struct {
 
 type OrderResponse struct {
 	OrderID        string     `json:"order_id"`
+	UserID         float64    `json:"user_id"`
 	Cart           []CartItem `json:"cart"`
 	TotalPrice     float64    `json:"total_price"`
 	OrderStatus    string     `json:"order_status"`
@@ -46,7 +47,28 @@ func orderHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	// ==========================================
+	// GET API: View orders (Admin sees all, Customer sees their own)
+	// ==========================================
 	if r.Method == http.MethodGet {
+		// Check if a specific userId was requested
+		requestedUserID := r.URL.Query().Get("userId")
+
+		if requestedUserID != "" {
+			var userOrders []OrderResponse
+			for _, order := range ordersDB {
+				// Convert stored float64 UserID to string for comparison
+				if fmt.Sprintf("%v", order.UserID) == requestedUserID {
+					userOrders = append(userOrders, order)
+				}
+			}
+			if userOrders == nil {
+				userOrders = []OrderResponse{} // Return empty array instead of null
+			}
+			json.NewEncoder(w).Encode(userOrders)
+			return
+		}
+		// If no userId query parameter is provided, return all orders (Admin view)
 		json.NewEncoder(w).Encode(ordersDB)
 		return
 	}
@@ -157,6 +179,7 @@ func orderHandler(w http.ResponseWriter, r *http.Request) {
 
 		newOrder := OrderResponse{
 			OrderID:        orderIDString,
+			UserID:         userID,
 			Cart:           req.Cart,
 			TotalPrice:     totalAmount,
 			OrderStatus:    "Confirmed",
