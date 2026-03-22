@@ -37,6 +37,12 @@ jobs:
       with:
         method: kubeconfig
         kubeconfig: ${{ secrets.KUBE_CONFIG }}
+      
+    - name: Create K8s Secret for Database
+      run: |
+        kubectl create secret generic product-secrets \
+          --from-literal=mongo-uri="${{ secrets.MONGO_URI_PRODUCT }}" \
+          --dry-run=client -o yaml | kubectl apply -f -
 
     - name: Update Deployment Image
       run: |

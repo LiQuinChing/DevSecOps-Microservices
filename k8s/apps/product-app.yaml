@@ -25,7 +25,10 @@ spec:
         - name: PORT
           value: "5000"
         - name: MONGO_URI
-          value: "mongodb+srv://thisal_fernando:AdminUser5085640@finance-tracker.sebpt.mongodb.net/product_service"
+          valueFrom:
+            secretKeyRef:
+              name: product-secret
+              key: mongo-uri
         # --------------------------
         ports:
         - containerPort: 5000
