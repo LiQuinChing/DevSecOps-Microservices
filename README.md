@@ -34,9 +34,10 @@ The platform runs on an internal Kubernetes DNS network. The Envoy Gateway expos
 
 The microservices communicate using **Synchronous REST APIs** over the isolated internal Kubernetes network.
 
-1.  **Ingress Routing (Public to Private):** External traffic hits the Envoy Gateway, which routes requests to the React Frontend. The Nginx reverse proxy inside the frontend container resolves CORS issues by intercepting `/api/*` calls and forwarding them to the respective backend K8s services.
-2.  **Product to Order (Internal API Call):** When a user adds an item to their cart, the `product-service` verifies and decrements the stock, then makes an internal HTTP POST request directly to the `order-service` (`http://order-service:8080/orders`) to generate the order invoice. The user's JWT token is dynamically forwarded in the request headers to maintain security.
-3.  **Payment to User (Internal API Call):**
+1.  **Ingress Routing (Public to Private):** External traffic hits the Envoy Gateway, which routes requests to the React Frontend. The Nginx reverse proxy inside the frontend container resolves CORS issues by intercepting `/api/*` calls and forwarding them to the respective backend K8s services. 
+2.  **Order to Payment** The Order Service constructs a JSON payload containing the orderId, extracted userId, amount, and paymentMethod, perfectly matching the Java Payment Service's expected Data Transfer Object (DTO). Upon receiving a 201 Created response internally, the Order Service finalizes the order status and returns a success message ("Order is sent to make the payment, connected with payment-service") to the frontend.
+3.  **Product to Order (Internal API Call):** When a user adds an item to their cart, the `product-service` verifies and decrements the stock, then makes an internal HTTP POST request directly to the `order-service` (`http://order-service:8080/orders`) to generate the order invoice. The user's JWT token is dynamically forwarded in the request headers to maintain security.
+4.  **Payment to User (Internal API Call):**
     Before finalizing a transaction, the `payment-service` makes an internal call to the `user-service` (`http://user-service:8081/users/{id}`) to validate that the customer account exists and is active.
 
 -----
