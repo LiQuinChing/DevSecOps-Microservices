@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: frontend-app
+  template:
+    metadata:
+      labels:
+        app: frontend-app
+    spec:
+      containers:
+      - name: frontend-app
+        # Replace 'miniecommerceacr' with your exact ACR name if you changed it
+        image: it22246714ctse.azurecr.io/frontend-client:latest
+        # Change PullPolicy so AKS knows to fetch it from the cloud registry
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend-app
+spec:
+  type: LoadBalancer
+  selector:
+    app: frontend-app
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080

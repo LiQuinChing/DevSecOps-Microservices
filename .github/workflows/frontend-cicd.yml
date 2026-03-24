@@ -1,0 +1,50 @@
+name: Frontend CI/CD Pipeline
+
+# Trigger the workflow when changes are pushed to the client folder
+on:
+  push:
+    branches:
+      - dev-main-all # <-- Explicitly tell it to watch your new branch!
+      - dev-main1    # <-- Keep the old one just in case
+    paths:
+      - 'client/**'
+      - 'k8s/apps/frontend-app.yaml'
+  workflow_dispatch:
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v4
+
+    - name: Log in to Azure Container Registry
+      uses: azure/docker-login@v1
+      with:
+        login-server: ${{ secrets.ACR_LOGIN_SERVER }}
+        username: ${{ secrets.ACR_USERNAME }}
+        password: ${{ secrets.ACR_PASSWORD }}
+
+    - name: Build and Push Secure Docker Image
+      run: |
+        # Build the image tagging it with the GitHub run ID for versioning
+        docker build -t ${{ secrets.ACR_LOGIN_SERVER }}/frontend-client:${{ github.run_id }} ./client
+        docker build -t ${{ secrets.ACR_LOGIN_SERVER }}/frontend-client:latest ./client
+        
+        # Push to ACR
+        docker push ${{ secrets.ACR_LOGIN_SERVER }}/frontend-client:${{ github.run_id }}
+        docker push ${{ secrets.ACR_LOGIN_SERVER }}/frontend-client:latest
+
+    - name: Set up Kubernetes Context
+      uses: azure/k8s-set-context@v3
+      with:
+        method: kubeconfig
+        kubeconfig: ${{ secrets.KUBE_CONFIG }}
+
+    - name: Update Deployment Image
+      run: |
+        kubectl apply -f k8s/apps/frontend-app.yaml
+        # Temporarily update the deployment to point to the newly built image in ACR
+        # Note: You will need to ensure your k8s/apps/frontend-app.yaml points to this ACR image eventually
+        kubectl set image deployment/frontend-app frontend-app=${{ secrets.ACR_LOGIN_SERVER }}/frontend-client:${{ github.run_id }}
