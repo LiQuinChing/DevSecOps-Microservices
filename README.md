@@ -2,7 +2,7 @@
 
 # 🛒 Secure E-Commerce Microservices Platform
 
-## 📖 Overview
+## Overview
 
 This project is a fully cloud-native, DevSecOps-driven E-Commerce platform built using a microservices architecture. It demonstrates modern security practices, independent CI/CD pipelines, and multi-language backend services securely orchestrated inside an Azure Kubernetes Service (AKS) cluster.
 
@@ -35,13 +35,13 @@ The platform runs on an internal Kubernetes DNS network. The Envoy Gateway expos
 The microservices communicate using **Synchronous REST APIs** over the isolated internal Kubernetes network.
 
 1.  **Ingress Routing (Public to Private):** External traffic hits the Envoy Gateway, which routes requests to the React Frontend. The Nginx reverse proxy inside the frontend container resolves CORS issues by intercepting `/api/*` calls and forwarding them to the respective backend K8s services.
-2.  **Product ➡️ Order (Internal API Call):** When a user adds an item to their cart, the `product-service` verifies and decrements the stock, then makes an internal HTTP POST request directly to the `order-service` (`http://order-service:8080/orders`) to generate the order invoice. The user's JWT token is dynamically forwarded in the request headers to maintain security.
-3.  **Payment ➡️ User (Internal API Call):**
+2.  **Product to Order (Internal API Call):** When a user adds an item to their cart, the `product-service` verifies and decrements the stock, then makes an internal HTTP POST request directly to the `order-service` (`http://order-service:8080/orders`) to generate the order invoice. The user's JWT token is dynamically forwarded in the request headers to maintain security.
+3.  **Payment to User (Internal API Call):**
     Before finalizing a transaction, the `payment-service` makes an internal call to the `user-service` (`http://user-service:8081/users/{id}`) to validate that the customer account exists and is active.
 
 -----
 
-## 🛡️ DevSecOps & Security Features
+##  DevSecOps & Security Features
 
   * **Zero-Vulnerability Containers:** All Dockerfiles utilize multi-stage builds and **Chainguard Distroless** base images (0 known CVEs). Shell access (`/bin/sh`) is completely removed from the production environment.
   * **Least Privilege:** All K8s pods run as unprivileged `nonroot` users. Kubernetes `securityContext` (fsGroup) is used to grant explicit, restricted permissions for volume mounts (e.g., image uploads).
@@ -50,7 +50,7 @@ The microservices communicate using **Synchronous REST APIs** over the isolated 
 
 -----
 
-## 🚀 Quick Start / Deployment Guide
+##  Quick Start / Deployment Guide
 
 **1. Connect to the Azure Kubernetes Cluster:**
 
