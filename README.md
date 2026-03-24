@@ -86,6 +86,3 @@ kubectl get gateway ecommerce-gateway
 
 *Open the provided IP address in your web browser to access the platform.*
 
------
-
-Would you like me to help you format this into a PDF or provide instructions on how to add this directly to your GitHub repository's main branch?
